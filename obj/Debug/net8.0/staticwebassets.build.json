@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "IgLIyK0olA3UAAv4dcYnLd1Kpx6nkXpmtPSFrcVMqf8=",
+  "Source": "FitTrack.API",
+  "BasePath": "_content/FitTrack.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
