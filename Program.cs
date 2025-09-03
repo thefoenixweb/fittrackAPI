@@ -1,6 +1,7 @@
 using FitTrack.API.Data;
 using FitTrack.API.Services;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add Entity Framework
+// Add Entity Framework with the MySQL provider
 builder.Services.AddDbContext<FitTrackDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var serverVersion = new MySqlServerVersion(new Version(8, 0, 21)); // Replace with your server version
+    options.UseMySql(connectionString, serverVersion);
+});
 
 // Add services
 builder.Services.AddScoped<IUserService, UserService>();
@@ -24,8 +29,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            // policy.WithOrigins("http://localhost:3000", "https://localhost:3000")
-             policy.WithOrigins("http://localhost:5173", "https://localhost:5173")
+            policy.WithOrigins("http://localhost:5173", "https://localhost:5173")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
